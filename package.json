@@ -8,6 +8,6 @@
   "dependencies": {
     "expo": "16.0.0",
     "react": "16.0.0-alpha.6",
-    "react-native": "expo/react-native#sdk-16"
+    "react-native": "https://github.com/exponent/react-native/archive/sdk-16.0.0.tar.gz"
   }
 }
