@@ -31,15 +31,12 @@ class Items extends React.Component {
           <TouchableOpacity
             key={id}
             onPress={() => this.props.onPressItem && this.props.onPressItem(id)}
-            style={[
-              {
-                padding: 5,
-                backgroundColor: 'white',
-                borderColor: 'black',
-                borderWidth: 1,
-              },
-              this.props.itemStyle,
-            ]}>
+            style={{
+              padding: 5,
+              backgroundColor: done ? '#aaffaa' : 'white',
+              borderColor: 'black',
+              borderWidth: 1,
+            }}>
             <Text>{value}</Text>
           </TouchableOpacity>
         ))}
@@ -48,11 +45,12 @@ class Items extends React.Component {
   }
 
   update() {
-    const query = this.props.query || '1 = 1';
     db.transaction(tx => {
-      tx.executeSql(`select * from items where ${query};`, [], (_, {
-        rows: { _array },
-      }) => this.setState({ items: _array }));
+      tx.executeSql(
+        `select * from items where done = ?;`,
+        [this.props.done ? 1 : 0],
+        (_, { rows: { _array } }) => this.setState({ items: _array })
+      );
     });
   }
 }
@@ -96,7 +94,7 @@ class App extends React.Component {
         </View>
         <View style={{ flex: 1, backgroundColor: 'gray' }}>
           <Items
-            query="done = 0"
+            done={false}
             ref={todo => this.todo = todo}
             onPressItem={id =>
               db.transaction(
@@ -110,9 +108,8 @@ class App extends React.Component {
               )}
           />
           <Items
-            query="done = 1"
+            done={true}
             ref={done => this.done = done}
-            itemStyle={{ backgroundColor: '#aaffaa' }}
             onPressItem={id =>
               db.transaction(
                 tx => {
