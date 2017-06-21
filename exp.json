@@ -3,7 +3,7 @@
   "description": "An empty new project",
   "slug": "expo-sqlite-example",
   "privacy": "public",
-  "sdkVersion": "16.0.0",
+  "sdkVersion": "18.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#cccccc",
