@@ -1,12 +1,6 @@
 import Expo, { SQLite } from 'expo';
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 const db = SQLite.openDatabase({ name: 'db.db' });
 
@@ -95,13 +89,11 @@ class App extends React.Component {
         <View style={{ flex: 1, backgroundColor: 'gray' }}>
           <Items
             done={false}
-            ref={todo => this.todo = todo}
+            ref={todo => (this.todo = todo)}
             onPressItem={id =>
               db.transaction(
                 tx => {
-                  tx.executeSql(`update items set done = 1 where id = ?;`, [
-                    id,
-                  ]);
+                  tx.executeSql(`update items set done = 1 where id = ?;`, [id]);
                 },
                 null,
                 this.update
@@ -109,7 +101,7 @@ class App extends React.Component {
           />
           <Items
             done={true}
-            ref={done => this.done = done}
+            ref={done => (this.done = done)}
             onPressItem={id =>
               db.transaction(
                 tx => {
