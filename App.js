@@ -2,7 +2,7 @@ import Expo, { SQLite } from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
-const db = SQLite.openDatabase({ name: 'db.db' });
+const db = SQLite.openDatabase('db.db');
 
 class Items extends React.Component {
   state = {
@@ -49,7 +49,7 @@ class Items extends React.Component {
   }
 }
 
-class App extends React.Component {
+export default class App extends React.Component {
   state = {
     text: null,
   };
@@ -142,5 +142,3 @@ const styles = StyleSheet.create({
     paddingTop: Expo.Constants.statusBarHeight,
   },
 });
-
-Expo.registerRootComponent(App);

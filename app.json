@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "expo-sqlite-example",
+    "description": "An empty new project",
+    "slug": "expo-sqlite-example",
+    "privacy": "public",
+    "sdkVersion": "24.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png"
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}

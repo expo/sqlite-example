@@ -1,13 +1,10 @@
 {
   "name": "expo-sqlite-example",
-  "version": "0.0.0",
-  "description": "Hello Expo!",
-  "author": null,
   "private": true,
-  "main": "main.js",
+  "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
-    "expo": "18.0.0-rc.2",
-    "react": "16.0.0-alpha.12",
-    "react-native": "https://github.com/expo/react-native#sdk-18"
+    "expo": "24.0.0",
+    "react": "16.0.0",
+    "react-native": "https://github.com/expo/react-native#sdk-24"
   }
 }
