@@ -1,12 +1,12 @@
-import Expo, { SQLite } from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Constants, SQLite } from 'expo';
 
 const db = SQLite.openDatabase('db.db');
 
 class Items extends React.Component {
   state = {
-    items: null,
+    items: null
   };
 
   componentDidMount() {
@@ -14,24 +14,28 @@ class Items extends React.Component {
   }
 
   render() {
+    const { done: doneHeading } = this.props;
     const { items } = this.state;
+    const heading = doneHeading ? 'Completed' : 'Todo';
+
     if (items === null || items.length === 0) {
       return null;
     }
 
     return (
-      <View style={{ margin: 5 }}>
+      <View style={{ marginBottom: 16, marginHorizontal: 16 }}>
+        <Text style={styles.sectionHeading}>{heading}</Text>
         {items.map(({ id, done, value }) => (
           <TouchableOpacity
             key={id}
             onPress={() => this.props.onPressItem && this.props.onPressItem(id)}
             style={{
-              padding: 5,
-              backgroundColor: done ? '#aaffaa' : 'white',
-              borderColor: 'black',
+              backgroundColor: done ? '#1c9963' : '#fff',
+              borderColor: '#000',
               borderWidth: 1,
+              padding: 8
             }}>
-            <Text>{value}</Text>
+            <Text style={{ color: done ? '#fff' : '#000' }}>{value}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -51,7 +55,7 @@ class Items extends React.Component {
 
 export default class App extends React.Component {
   state = {
-    text: null,
+    text: null
   };
 
   componentDidMount() {
@@ -65,18 +69,10 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
+        <Text style={styles.heading}>SQLite Example</Text>
+        <View style={styles.flexRow}>
           <TextInput
-            style={{
-              flex: 1,
-              padding: 5,
-              height: 40,
-              borderColor: 'gray',
-              borderWidth: 1,
-            }}
+            style={styles.input}
             placeholder="what do you need to do?"
             value={this.state.text}
             onChangeText={text => this.setState({ text })}
@@ -86,7 +82,7 @@ export default class App extends React.Component {
             }}
           />
         </View>
-        <View style={{ flex: 1, backgroundColor: 'gray' }}>
+        <View style={styles.listArea}>
           <Items
             done={false}
             ref={todo => (this.todo = todo)}
@@ -137,8 +133,34 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    paddingTop: Expo.Constants.statusBarHeight,
+    flex: 1,
+    paddingTop: Constants.statusBarHeight,
+  },
+  heading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  flexRow: {
+    flexDirection: 'row'
+  },
+  input: {
+    borderColor: '#4630eb',
+    borderRadius: 4,
+    borderWidth: 1,
+    flex: 1,
+    height: 48,
+    margin: 16,
+    padding: 5
+  },
+  listArea: {
+    backgroundColor: '#f0f0f0',
+    flex: 1,
+    paddingTop: 16
+  },
+  sectionHeading: {
+    fontSize: 18,
+    marginBottom: 8
   },
 });
