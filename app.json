@@ -1,16 +1,21 @@
 {
   "expo": {
     "name": "expo-sqlite-example",
-    "description": "An empty new project",
+    "description": "sqlite example in expo",
+    "scheme": "expo-sqlite-example",
     "slug": "expo-sqlite-example",
     "privacy": "public",
-    "sdkVersion": "30.0.0",
+    "sdkVersion": "32.0.0",
     "version": "1.0.0",
+    "platforms": ["ios", "android"],
+    "githubUrl": "https://github.com/expo/sqlite-example",
     "orientation": "portrait",
-    "primaryColor": "#cccccc",
+    "primaryColor": "#ffffff",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png"
+      "backgroundColor": "#ffffff",
+      "image": "./assets/splash.png",
+      "resizeMode": "contain"
     },
     "ios": {
       "supportsTablet": true

@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity
+} from 'react-native';
 import { Constants, SQLite } from 'expo';
 
 const db = SQLite.openDatabase('db.db');
@@ -23,7 +30,7 @@ class Items extends React.Component {
     }
 
     return (
-      <View style={{ marginBottom: 16, marginHorizontal: 16 }}>
+      <View style={styles.sectionContainer}>
         <Text style={styles.sectionHeading}>{heading}</Text>
         {items.map(({ id, done, value }) => (
           <TouchableOpacity
@@ -72,17 +79,17 @@ export default class App extends React.Component {
         <Text style={styles.heading}>SQLite Example</Text>
         <View style={styles.flexRow}>
           <TextInput
-            style={styles.input}
-            placeholder="what do you need to do?"
-            value={this.state.text}
             onChangeText={text => this.setState({ text })}
             onSubmitEditing={() => {
               this.add(this.state.text);
               this.setState({ text: null });
             }}
+            placeholder="what do you need to do?"
+            style={styles.input}
+            value={this.state.text}
           />
         </View>
-        <View style={styles.listArea}>
+        <ScrollView style={styles.listArea}>
           <Items
             done={false}
             ref={todo => (this.todo = todo)}
@@ -107,12 +114,17 @@ export default class App extends React.Component {
                 this.update
               )}
           />
-        </View>
+        </ScrollView>
       </View>
     );
   }
 
   add(text) {
+    // is text empty?
+    if (text === null || text === '') {
+      return false;
+    }
+
     db.transaction(
       tx => {
         tx.executeSql('insert into items (done, value) values (0, ?)', [text]);
@@ -152,12 +164,16 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     margin: 16,
-    padding: 5
+    padding: 8
   },
   listArea: {
     backgroundColor: '#f0f0f0',
     flex: 1,
     paddingTop: 16
+  },
+  sectionContainer: {
+    marginBottom: 16,
+    marginHorizontal: 16
   },
   sectionHeading: {
     fontSize: 18,
