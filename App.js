@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -6,10 +6,11 @@ import {
   View,
   TextInput,
   TouchableOpacity
-} from 'react-native';
-import { Constants, SQLite } from 'expo';
+} from "react-native";
+import Constants from "expo-constants";
+import { SQLite } from "expo-sqlite";
 
-const db = SQLite.openDatabase('db.db');
+const db = SQLite.openDatabase("db.db");
 
 class Items extends React.Component {
   state = {
@@ -23,7 +24,7 @@ class Items extends React.Component {
   render() {
     const { done: doneHeading } = this.props;
     const { items } = this.state;
-    const heading = doneHeading ? 'Completed' : 'Todo';
+    const heading = doneHeading ? "Completed" : "Todo";
 
     if (items === null || items.length === 0) {
       return null;
@@ -37,12 +38,13 @@ class Items extends React.Component {
             key={id}
             onPress={() => this.props.onPressItem && this.props.onPressItem(id)}
             style={{
-              backgroundColor: done ? '#1c9963' : '#fff',
-              borderColor: '#000',
+              backgroundColor: done ? "#1c9963" : "#fff",
+              borderColor: "#000",
               borderWidth: 1,
               padding: 8
-            }}>
-            <Text style={{ color: done ? '#fff' : '#000' }}>{value}</Text>
+            }}
+          >
+            <Text style={{ color: done ? "#fff" : "#000" }}>{value}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -68,7 +70,7 @@ export default class App extends React.Component {
   componentDidMount() {
     db.transaction(tx => {
       tx.executeSql(
-        'create table if not exists items (id integer primary key not null, done int, value text);'
+        "create table if not exists items (id integer primary key not null, done int, value text);"
       );
     });
   }
@@ -96,11 +98,14 @@ export default class App extends React.Component {
             onPressItem={id =>
               db.transaction(
                 tx => {
-                  tx.executeSql(`update items set done = 1 where id = ?;`, [id]);
+                  tx.executeSql(`update items set done = 1 where id = ?;`, [
+                    id
+                  ]);
                 },
                 null,
                 this.update
-              )}
+              )
+            }
           />
           <Items
             done={true}
@@ -112,7 +117,8 @@ export default class App extends React.Component {
                 },
                 null,
                 this.update
-              )}
+              )
+            }
           />
         </ScrollView>
       </View>
@@ -121,14 +127,14 @@ export default class App extends React.Component {
 
   add(text) {
     // is text empty?
-    if (text === null || text === '') {
+    if (text === null || text === "") {
       return false;
     }
 
     db.transaction(
       tx => {
-        tx.executeSql('insert into items (done, value) values (0, ?)', [text]);
-        tx.executeSql('select * from items', [], (_, { rows }) =>
+        tx.executeSql("insert into items (done, value) values (0, ?)", [text]);
+        tx.executeSql("select * from items", [], (_, { rows }) =>
           console.log(JSON.stringify(rows))
         );
       },
@@ -145,20 +151,20 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
+    paddingTop: Constants.statusBarHeight
   },
   heading: {
     fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center'
+    fontWeight: "bold",
+    textAlign: "center"
   },
   flexRow: {
-    flexDirection: 'row'
+    flexDirection: "row"
   },
   input: {
-    borderColor: '#4630eb',
+    borderColor: "#4630eb",
     borderRadius: 4,
     borderWidth: 1,
     flex: 1,
@@ -167,7 +173,7 @@ const styles = StyleSheet.create({
     padding: 8
   },
   listArea: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     flex: 1,
     paddingTop: 16
   },
@@ -178,5 +184,5 @@ const styles = StyleSheet.create({
   sectionHeading: {
     fontSize: 18,
     marginBottom: 8
-  },
+  }
 });
