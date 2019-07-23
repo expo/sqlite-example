@@ -8,11 +8,13 @@ inserting items, querying and displaying results, using prepared statements.
 
 #### Install & Build
 
-Install: `yarn install`
+- Clone this repository
 
-[Expo CLI](https://docs.expo.io/versions/latest/workflow/expo-cli/): `npm install -g expo-cli` (if not already installed globally on your machine)
+- Install dependencies by running `yarn install`
 
-Run Project Locally: `expo start`
+- Install [Expo CLI](https://docs.expo.io/versions/latest/workflow/expo-cli/) by running `npm install -g expo-cli` (if not already installed globally on your machine)
+
+- Run the project locally by running `expo start`
 
 #### Screenshot
 
