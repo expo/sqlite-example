@@ -8,7 +8,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import Constants from "expo-constants";
-import { SQLite } from "expo-sqlite";
+import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase("db.db");
 
